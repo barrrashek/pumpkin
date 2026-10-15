@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Интерактивная 3D-Тыква | XR-проект</title>
+  <!-- Подключаем model-viewer -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  <style>
+    :root {
+      --primary: #ff7e00; /* Оранжевый цвет тыквы */
+      --bg-color: #1a1a1a;
+      --text-color: #f0f0f0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      padding: 20px 0;
+      width: 100%;
+      background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(26,26,26,0) 100%);
+      position: absolute;
+      top: 0;
+      z-index: 10;
+      pointer-events: none;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      text-shadow: 0 0 10px rgba(255, 126, 0, 0.5);
+    }
+    .viewer-container {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+    }
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #2a2a2a 0%, #0a0a0a 100%);
+      --poster-color: transparent;
+    }
+    /* Стилизация кнопки AR, которую добавляет model-viewer */
+    model-viewer::part(default-ar-button) {
+      background-color: var(--primary);
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(255, 126, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎃 Магическая Тыква</h1>
+    <p>Наведи камеру или покрути модель</p>
+  </header>
+
+  <div class="viewer-container">
+    <model-viewer 
+      id="pumpkinViewer"
+      src="assets/pumpkin.glb" 
+      alt="3D модель тыквы для XR проекта"
+      camera-controls 
+      auto-rotate 
+      ar 
+      ar-modes="webxr scene-viewer quick-look"
+      shadow-intensity="1"
+      environment-image="neutral"
+      exposure="1.2"
+      camera-orbit="0deg 90deg 8.5m"
+      camera-target="0.2m 0 0"
+      min-camera-orbit="auto auto 4m"
+      max-camera-orbit="auto auto 9m"
+      touch-action="pan-y">
+      
+      <!-- Красивая заглушка, пока модель грузится -->
+      <div slot="poster" style="display: flex; justify-content: center; align-items: center; height: 100%; color: #888;">
+        Загрузка магии...
+      </div>
+    </model-viewer>
+  </div>
+
+</body>
+</html>
